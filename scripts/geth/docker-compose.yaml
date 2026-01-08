@@ -64,6 +64,9 @@ services:
       - --metrics
       - --metrics.port=8008
       - --verbosity=3
+      - --override.osaka=1864841831
+      - --override.bpo1=1864841831
+      - --override.bpo2=1864841831
     logging:
       driver: json-file
       options:
