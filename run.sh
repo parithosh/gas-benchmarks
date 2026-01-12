@@ -707,12 +707,11 @@ dump_client_logs() {
     return
   fi
   mkdir -p logs
-  local ts=$(date +%s)
   if docker_container_exists "gas-execution-client"; then
-    docker logs gas-execution-client &> "logs/docker_${client_base}_${ts}.log" || true
+    docker logs gas-execution-client &> "logs/docker_${client_base}.log" || true
   fi
   if docker_container_exists "gas-execution-client-sync"; then
-    docker logs gas-execution-client-sync &> "logs/docker_sync_${client_base}_${ts}.log" || true
+    docker logs gas-execution-client-sync &> "logs/docker_sync_${client_base}.log" || true
   fi
 }
 
