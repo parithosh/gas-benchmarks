@@ -709,9 +709,11 @@ dump_client_logs() {
   mkdir -p logs
   if docker_container_exists "gas-execution-client"; then
     docker logs gas-execution-client &> "logs/docker_${client_base}.log" || true
+    docker inspect gas-execution-client > "logs/docker_command_${client_base}.json" 2>/dev/null || true
   fi
   if docker_container_exists "gas-execution-client-sync"; then
     docker logs gas-execution-client-sync &> "logs/docker_sync_${client_base}.log" || true
+    docker inspect gas-execution-client-sync > "logs/docker_command_sync_${client_base}.json" 2>/dev/null || true
   fi
 }
 
