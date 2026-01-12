@@ -683,6 +683,9 @@ docker_compose_down_for_client() {
     return
   fi
 
+  # Dump logs before removing containers
+  dump_client_logs "$client_base"
+
   if [ -f "$compose_dir/docker-compose.yaml" ]; then
     docker compose -f "$compose_dir/docker-compose.yaml" down --volumes >/dev/null 2>&1 || \
       docker compose -f "$compose_dir/docker-compose.yaml" down --volumes
@@ -721,13 +724,11 @@ cleanup_on_exit() {
     local client_base client_spec
     if [ "${#RUNNING_CLIENTS[@]}" -gt 0 ]; then
       for client_base in "${!RUNNING_CLIENTS[@]}"; do
-        dump_client_logs "$client_base"
         docker_compose_down_for_client "$client_base"
       done
     elif [ "${#CLIENT_ARRAY[@]}" -gt 0 ]; then
       for client_spec in "${CLIENT_ARRAY[@]}"; do
         client_base=$(echo "$client_spec" | cut -d '_' -f 1)
-        dump_client_logs "$client_base"
         docker_compose_down_for_client "$client_base"
       done
     fi
@@ -1124,8 +1125,6 @@ for run in $(seq 1 $RUNS); do
 
     # Collect logs & teardown
     start_timer "teardown_${client}"
-    ts=$(date +%s)
-    dump_client_logs "$client_base"
     docker_compose_down_for_client "$client_base"
 
     rm -rf "scripts/$client_base/execution-data"
