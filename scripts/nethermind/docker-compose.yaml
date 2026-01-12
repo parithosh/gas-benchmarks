@@ -37,6 +37,7 @@ services:
       - --Network.DiscoveryPort=0
       - --Network.MaxActivePeers=0
       - --Init.DiscoveryEnabled=false
+      - --Init.BaseDbPath=/nethermind/data/mainnet
       - --HealthChecks.Enabled=true
       - --Metrics.Enabled=true
       - --Metrics.ExposePort=8008
