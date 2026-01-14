@@ -36,23 +36,22 @@ services:
       - 8546
       - 8551
     command:
-      - --syncmode=full
-      - --gcmode=archive
-      - --snapshot=false
-      - --nat=none
       - --http
       - --http.addr=0.0.0.0
       - --http.vhosts=*
       - --http.corsdomain=*
       - --http.api
-      - web3,eth,net
+      - web3,eth,net,debug,admin
       - --datadir=/var/lib/goethereum
-      - --port=0
+      - --port=30303
       - --http.port=8545
-      - ${GETH_NETWORK_FLAG:---networkid=1337}
+      - ${GETH_NETWORK_FLAG:---networkid=12159}
       - --maxpeers=0
       - --nodiscover
       - --bootnodes=
+      - --miner.gaslimit=1000000000
+      - --txpool.globalqueue=10000
+      - --txpool.globalslots=10000
       - --ws
       - --ws.addr=0.0.0.0
       - --ws.port=8546
