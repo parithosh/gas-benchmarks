@@ -32,9 +32,7 @@ services:
       - --port=30303
       - --http.port=8545
       - ${GETH_NETWORK_FLAG:---networkid=12159}
-      - --maxpeers=0
-      - --nodiscover
-      - --bootnodes=
+      - --discovery.v5
       - --miner.gaslimit=1000000000
       - --txpool.globalqueue=10000
       - --txpool.globalslots=10000
